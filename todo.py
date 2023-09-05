@@ -10,22 +10,27 @@ def remove_all():
     expression2.delete(0.0, END)
 
 def remove_task():
-    global check
-    rem_data = ""
-    rem_count = 1
+    global check, count
+    
+    n, rem_data = 1, ""
+
+    expression2.delete(0.0, END)
+
     index = int(expression3.get())
     print(check)
-    for i in range(len(check)):
-        if int(check[i][0]) == (index-1):
-            check.pop(check.index(check[i]))
+    for task in check:
+        if task[0] == str(index):
+            check.pop(index-1)
+            count -= 1
 
-    for j in check:
-            rem_data += f"{rem_count}. {j}\n"
-            rem_count += 1
+    for task in check:
+        if n <= count:
+            rem_data += f"{n}{task[1:]}"
+            n += 1
+        else:
+            break
 
     expression2.insert('end -1 chars', rem_data)
-
-    check = []
 
 def add_task():
     global todo, data, text_error, count, check
