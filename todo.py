@@ -17,7 +17,6 @@ def remove_task():
     expression2.delete(0.0, END)
 
     index = int(expression3.get())
-    print(check)
     for task in check:
         if task[0] == str(index):
             check.pop(index-1)
@@ -51,7 +50,8 @@ def add_task():
         todo, data = [], ""
 
     else:
-        text_error = Label(root, fg = "red", bg = "black", text = "Enter task!", font = font_entry)
+        text_error = Label(root, fg = "red", bg = "black", text = "Enter task!",
+            font = font_entry)
         text_error.grid(row = 4, column = 0, sticky = 'w', padx = 200)
 
 
@@ -79,7 +79,8 @@ if __name__ == "__main__":
     expression1.grid(row = 3, column = 0, ipadx = 120, ipady = 5, padx = 10, sticky = 'w')
 
     font_button = font.Font(family = "Bell Gothic Std Black", size = 15)
-    button1 = Button(root, text = "Submit", fg = "black", bg = "white", command = add_task, font = font_button)
+    button1 = Button(root, text = "Submit", fg = "black", bg = "white", command = add_task,
+        font = font_button)
     button1.grid(row = 3, column = 0, padx = 500)
 
     font_subtitle = font.Font(family = "Bell Gothic Std Black", size = 20)
@@ -99,10 +100,12 @@ if __name__ == "__main__":
     text_empty = Label(root, fg = "red", bg = "black", text = "   ", font = font_entry)
     text_empty.grid(row = 6, column = 0, sticky = 'w', padx = 200)
 
-    button2 = Button(root, text = "Remove All", fg = "black", bg = "red", command = remove_all, font = font_button)
+    button2 = Button(root, text = "Remove All", fg = "black", bg = "red", command = remove_all,
+        font = font_button)
     button2.grid(row = 7, column = 0, sticky = 'w', padx = 20)
 
-    button3 = Button(root, text = "Remove Entry:", fg = "black", bg = "red", command = remove_task, font = font_button)
+    button3 = Button(root, text = "Remove Entry:", fg = "black", bg = "red",
+        command = remove_task, font = font_button)
     button3.grid(row = 7, column = 0, sticky = 'w', padx = 350)
 
     remove_entry = IntVar(root)
