@@ -2,15 +2,33 @@ import string
 from tkinter import *
 import tkinter.font as font
 
-todo, data = [], ""
+todo, data, count, check = [], "", 1, []
 
 def remove_all():
-    global data
-    data = ""
-    expression2.insert('end -1 chars', data)
-    
+    global data, todo, count, check
+    todo, data, count = [], "", 1
+    expression2.delete(0.0, END)
+
+def remove_task():
+    global check
+    rem_data = ""
+    rem_count = 1
+    index = int(expression3.get())
+    print(check)
+    for i in range(len(check)):
+        if int(check[i][0]) == (index-1):
+            check.pop(check.index(check[i]))
+
+    for j in check:
+            rem_data += f"{rem_count}. {j}\n"
+            rem_count += 1
+
+    expression2.insert('end -1 chars', rem_data)
+
+    check = []
+
 def add_task():
-    global todo, data, text_error
+    global todo, data, text_error, count, check
 
     text_error.destroy()
 
@@ -18,7 +36,9 @@ def add_task():
         todo.append(line.get())
 
         for task in todo:
-            data += f"{task}\n"
+            data += f"{count}. {task}\n"
+            check.append(f"{count}. {task}\n")
+            count += 1
 
         expression2.insert('end -1 chars', data)
 
@@ -34,7 +54,7 @@ if __name__ == "__main__":
     root = Tk()
     root.configure(background = "black")
     root.title("To-Do List")
-    root.geometry("595x730")
+    root.geometry("595x670")
 
     font_title = font.Font(family = "Bell Gothic Std Black", size = 25, weight = "bold")
     font_title.configure(underline = True)
@@ -60,12 +80,13 @@ if __name__ == "__main__":
     font_subtitle = font.Font(family = "Bell Gothic Std Black", size = 20)
     text_task = Label(root, fg = "white", bg = "black", text = "\nTasks", font = font_subtitle)
     text_task.grid(row = 4, column = 0, sticky = 'w')
+    text_task.config(state = NORMAL)
 
     todolist = StringVar(root)
 
     font_entry = font.Font(family = "Bell Gothic Std Black", size = 15)
-    expression2 = Text(root, height = 5, width = 20, font = font_entry)
-    expression2.grid(row = 5, column = 0, ipadx = 120, ipady = 150, padx = 10, sticky = 'w')
+    expression2 = Text(master = root, height = 5, width = 20, font = font_entry)
+    expression2.grid(row = 5, column = 0, ipadx = 120, ipady = 120, padx = 10, sticky = 'w')
 
     text_error = Label(root, fg = "red", bg = "black", text = "   ", font = font_entry)
     text_error.grid(row = 4, column = 0, sticky = 'w', padx = 200)
@@ -76,13 +97,11 @@ if __name__ == "__main__":
     button2 = Button(root, text = "Remove All", fg = "black", bg = "red", command = remove_all, font = font_button)
     button2.grid(row = 7, column = 0, sticky = 'w', padx = 20)
 
-    button3 = Button(root, text = "Remove Entry:", fg = "black", bg = "red", command = remove_all, font = font_button)
-    button3.grid(row = 7, column = 0, sticky = 'w', padx = 200)
+    button3 = Button(root, text = "Remove Entry:", fg = "black", bg = "red", command = remove_task, font = font_button)
+    button3.grid(row = 7, column = 0, sticky = 'w', padx = 350)
 
     remove_entry = IntVar(root)
-    expression3 = Text(root, height = 1, width = 3, font = font_entry)
-    expression3.grid(row = 7, column = 0, ipadx = 1, ipady = 1, padx = 360)
+    expression3 = Entry(root, textvariable = remove_entry, font = font_entry)
+    expression3.place(x = 510, y = 623, width = 30)
 
     root.mainloop()
-
-    
