@@ -1,6 +1,6 @@
 import random
 import string
-import pyperclip
+#import pyperclip
 from tkinter import *
 import tkinter.font as font
 
@@ -10,7 +10,7 @@ def generator():
     global to_display
     password = []
     n = equation1.get()
-    if n > 0 and n <= 30:
+    if n >= 8 and n <= 30:
         while n > 0:
             char = random.choice(["Sym", "Char", "Num"])
             if char == "Sym":
@@ -23,7 +23,7 @@ def generator():
         to_display += "".join(password)
         equation2.set(to_display)
     else:
-        equation2.set("Select range between 1 and 30!")
+        equation2.set("Select range between 8 and 30!")
 
 def reset():
     global to_display
